@@ -11,11 +11,10 @@ from azure.ai.language.conversations import ConversationAnalysisClient
 
 class MyBot(ActivityHandler):
     def __init__(self):
-        self.credential = AzureKeyCredential(os.getenv('SUB_ID'))
+        self.credential = AzureKeyCredential(str(os.getenv('SUB_ID')))
         self.endpoint = os.getenv('ENDPOINT')
         self.project_name = os.getenv('PROJECT_NAME')
         self.deploy_name = os.getenv('DEPLOY_NAME')
-    # See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
 
     def conversation_understanding(self,query):
         client = ConversationAnalysisClient(self.endpoint, self.credential)
