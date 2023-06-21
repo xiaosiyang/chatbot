@@ -78,12 +78,16 @@ async def messages(req: Request) -> Response:
     except Exception as exception:
         raise exception
 
-
-app = web.Application(middlewares=[aiohttp_error_middleware])
-app.router.add_post("/api/messages", messages)
+def app_azure(argv):
+    app = web.Application(middlewares=[aiohttp_error_middleware])
+    app.router.add_post("/api/messages", messages)
+    return app
 
 if __name__ == "__main__":
+    app = app_azure(None)
     try:
-        web.run_app(app, host="localhost", port=CONFIG.PORT)
+        web.run_app(app, 
+                    host="localhost", 
+                    port=CONFIG.PORT)
     except Exception as error:
         raise error
