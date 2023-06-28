@@ -87,9 +87,10 @@ def app_azure(argv):
 
 if __name__ == "__main__":
     app = app_azure(None)
+    print('line89')
     try:
         web.run_app(app, 
-                    host="localhost", 
+                    host="0.0.0.0", 
                     port=CONFIG.PORT)
     except Exception as error:
         raise error
