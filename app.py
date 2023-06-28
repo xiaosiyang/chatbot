@@ -61,7 +61,7 @@ BOT = MyBot()
 
 # Listen for incoming requests on /api/messages
 async def messages(req: Request) -> Response:
-    # Main bot message handler.
+    print('Main bot message handler.')
     if "application/json" in req.headers["Content-Type"]:
         body = await req.json()
     else:
@@ -79,8 +79,10 @@ async def messages(req: Request) -> Response:
         raise exception
 
 def app_azure(argv):
+    print('test-------------')
     app = web.Application(middlewares=[aiohttp_error_middleware])
     app.router.add_post("/api/messages", messages)
+    print('done........')
     return app
 
 if __name__ == "__main__":
