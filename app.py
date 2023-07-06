@@ -82,7 +82,7 @@ async def messages(req: Request) -> Response:
     except Exception as exception:
         raise exception
 
-def app_azure(argv):
+def app():
     print('test-------------')
     #app = web.Application(middlewares=[aiohttp_error_middleware])
     app = web.Application()
@@ -93,10 +93,10 @@ def app_azure(argv):
 
 if __name__ == "__main__":
     print('start main')
-    app = app_azure(None)
+    app_res = app()
     print('line89')
     try:
-        web.run_app(app, 
+        web.run_app(app_res, 
                     host="0.0.0.0", 
                     port=CONFIG.PORT)
     except Exception as error:
