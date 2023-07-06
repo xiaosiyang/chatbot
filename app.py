@@ -92,6 +92,7 @@ def app_azure(argv):
     return app
 
 if __name__ == "__main__":
+    print('start main')
     app = app_azure(None)
     print('line89')
     try:
