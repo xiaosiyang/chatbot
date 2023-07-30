@@ -77,28 +77,8 @@ async def messages(req: Request) -> Response:
     except Exception as exception:
         raise exception
 
-"""
-async def messages(req: Request) -> Response:
-    # Main bot message handler.
-    if "application/json" in req.headers["Content-Type"]:
-        body = await req.json()
-    else:
-        return Response(status=415)
 
-    activity = Activity().deserialize(body)
-    auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
-
-    try:
-        response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
-        if response:
-            return json_response(data=response.body, status=response.status)
-        return Response(status=201)
-    except Exception as exception:
-        raise exception
-    
-"""
 def init_func(argv):
-    #app = web.Application(middlewares=[aiohttp_error_middleware])
     app = web.Application()
     app.router.add_post("/api/messages", messages)
     return app
@@ -106,7 +86,6 @@ def init_func(argv):
 if __name__ == "__main__":
     app_res = init_func(None)
     try:
-        web.run_app(app_res, host="localhost", port=CONFIG.PORT)
-        #web.run_app(APP, host="localhost", port=CONFIG.PORT)
+        web.run_app(app_res, host="0.0.0.0", port=CONFIG.PORT)
     except Exception as error:
         raise error
