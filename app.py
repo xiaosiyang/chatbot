@@ -16,6 +16,9 @@ from botbuilder.schema import Activity, ActivityTypes
 
 from bot import MyBot
 from config import DefaultConfig
+import logging
+
+logger = logging.getLogger()
 
 CONFIG = DefaultConfig()
 
@@ -79,6 +82,7 @@ async def messages(req: Request) -> Response:
 
 
 def init_func(argv):
+    logger.info('inside_init')
     app = web.Application()
     app.router.add_post("/api/messages", messages)
     return app
@@ -86,3 +90,4 @@ def init_func(argv):
 if __name__ == "__main__":
     app_res = init_func(None)
     web.run_app(app_res, host='0.0.0.0', port=CONFIG.PORT)
+
