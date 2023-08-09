@@ -84,7 +84,7 @@ async def messages(req: Request) -> Response:
 def init_func(argv):
     logger.info('inside_init')
     app = web.Application()
-    app.router.add_post("/api/messages", messages)
+    app.router.add_post("/post", messages)
     return app
 
 if __name__ == "__main__":
