@@ -64,6 +64,7 @@ BOT = MyBot()
 
 # Listen for incoming requests on /api/messages
 async def messages(req: Request) -> Response:
+    logger.info('inside_messages')
     if "application/json" in req.headers["Content-Type"]:
         body = await req.json()
     else:
