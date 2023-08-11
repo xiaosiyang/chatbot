@@ -65,7 +65,8 @@ BOT = MyBot()
 # Listen for incoming requests on /api/messages
 async def messages(req: Request) -> Response:
     logger.info('inside_messages')
-    if "application/json" in req.headers["Content-Type"]:
+    #if "application/json" in req.headers["Content-Type"]:
+    if req.method=="POST":
         body = await req.json()
     else:
         return Response(status=415)
@@ -88,7 +89,7 @@ def init_func(argv):
     logger.info('inside_init')
     app = web.Application()
     logger.info('inside web app before post')
-    app.router.add_post("/post", messages)
+    app.router.add_post("/", messages)
     logger.info('after post')
     return app
 
