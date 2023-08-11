@@ -74,7 +74,9 @@ async def messages(req: Request) -> Response:
     auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
 
     try:
+        logger.info('line77')
         response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
+        logger.info('line79')
         if response:
             return json_response(data=response.body, status=response.status)
         return Response(status=201)
@@ -86,7 +88,7 @@ def init_func(argv):
     logger.info('inside_init')
     app = web.Application()
     logger.info('inside web app before post')
-    app.router.add_post("/", messages)
+    app.router.add_post("/post", messages)
     logger.info('after post')
     return app
 
