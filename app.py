@@ -66,11 +66,12 @@ BOT = MyBot()
 async def messages(req: Request) -> Response:
     logger.info('inside_messages')
     #if "application/json" in req.headers["Content-Type"]:
-    if req.method=="POST":
-        body = await req.json()
-    else:
-        return Response(status=415)
+    #if req.method=="POST":
+    #    body = await req.json()
+    #else:
+    #    return Response(status=415)
     
+    body = await req.json()
     activity = Activity().deserialize(body)
     auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
 
