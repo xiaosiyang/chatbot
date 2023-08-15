@@ -71,13 +71,13 @@ async def messages(req: Request) -> Response:
     #else:
     #    return Response(status=415)
 
-    body = await req.json()
-    activity = Activity().deserialize(body)
+    #body = await req.json()
+    #activity = Activity().deserialize(body)
     auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
 
     try:
         logger.info('line77')
-        response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
+        response = await ADAPTER.process_activity(req, auth_header, BOT.on_turn)
         logger.info('line79')
         if response:
             return json_response(data=response.body, status=response.status)
