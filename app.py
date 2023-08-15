@@ -77,6 +77,7 @@ async def messages(req: Request) -> Response:
 
     try:
         logger.info('line77')
+        logger.info(req)
         response = await ADAPTER.process_activity(req, auth_header, BOT.on_turn)
         logger.info('line79')
         if response:
