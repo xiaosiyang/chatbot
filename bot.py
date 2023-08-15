@@ -109,5 +109,7 @@ class MyBot(ActivityHandler):
             if member_added.id != turn_context.activity.recipient.id:
                 await turn_context.send_activity("Hello and welcome!")
     
-    
+    async def on_turn(self, turn_context:TurnContext): 
+        if turn_context.activity.type == "message": 
+            await turn_context.send_activity(f"Testing: {turn_context.activity.text}")
     

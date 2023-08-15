@@ -77,7 +77,7 @@ async def messages(req: Request) -> Response:
 
     try:
         logger.info('line77')
-        response = await ADAPTER.process_activity(activity, auth_header, BOT.on_message_activity)
+        response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
         logger.info('line79')
         if response:
             return json_response(data=response.body, status=response.status)
