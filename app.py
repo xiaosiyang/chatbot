@@ -65,20 +65,22 @@ BOT = MyBot()
 # Listen for incoming requests on /api/messages
 async def messages(req: Request) -> Response:
     logger.info('inside_messages')
-    #if "application/json" in req.headers["Content-Type"]:
+    logger.info(req.headers["Content-Type"])
+    if "application/json" in req.headers["Content-Type"]:
     #if req.method=="POST":
-    #    body = await req.json()
-    #else:
-    #    return Response(status=415)
+        body = await req.json()
+    else:
+        return Response(status=415)
 
     #body = await req.json()
-    #activity = Activity().deserialize(body)
+    logger.info(body)
+    activity = Activity().deserialize(body)
     auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
 
     try:
         logger.info('line77')
         logger.info(req)
-        response = await ADAPTER.process_activity(req, auth_header, BOT.on_turn)
+        response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
         logger.info('line79')
         if response:
             return json_response(data=response.body, status=response.status)
