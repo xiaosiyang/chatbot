@@ -66,11 +66,13 @@ BOT = MyBot()
 async def messages(req: Request) -> Response:
     logger.info('request headers:')
     #logger.info(req.headers)
-    #if "application/json" in req.headers["Content-Type"]:
+    if "application/json" in req.headers["Content-Type"]:
     #if req.method=="POST":
-        #body = await req.json()
-    #else:
-        #return Response(status=415)
+        body = await req.json()
+        logger.info(f'line72 {body}')
+        logger.info(f'line73 {Activity().deserialize(body)}')
+    else:
+        return Response(status=415)
 
     #body = await req.json()
     #logger.info(body)
@@ -79,10 +81,10 @@ async def messages(req: Request) -> Response:
 
     try:
         logger.info('req.text')
-        body = await req.text()
-        logger.info(body)
-        
-        response = await ADAPTER.process_activity(body, auth_header, BOT.on_turn)
+        #body = await req.text()
+        logger.info(req["body"])
+
+        response = await ADAPTER.process_activity(req["body"], auth_header, BOT.on_turn)
         logger.info('line79')
         if response:
             return json_response(data=response.body, status=response.status)
