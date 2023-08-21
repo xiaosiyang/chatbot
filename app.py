@@ -56,7 +56,7 @@ async def on_error(context: TurnContext, error: Exception):
         await context.send_activity(trace_activity)
 
 
-ADAPTER.on_turn_error = on_error
+#ADAPTER.on_turn_error = on_error
 
 # Create the Bot
 BOT = MyBot()
