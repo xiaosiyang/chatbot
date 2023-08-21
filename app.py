@@ -69,22 +69,22 @@ async def messages(req: Request) -> Response:
     if "application/json" in req.headers["Content-Type"]:
     #if req.method=="POST":
         body = await req.json()
-        logger.info(f'line72 {body}')
+        #logger.info(f'line72 {body}')
         logger.info(f'line73 {Activity().deserialize(body)}')
     else:
         return Response(status=415)
 
     #body = await req.json()
     #logger.info(body)
-    #activity = Activity().deserialize(body)
+    activity = Activity().deserialize(body)
     auth_header = req.headers["Authorization"] if "Authorization" in req.headers else ""
 
     try:
         logger.info('req.text')
         #body = await req.text()
-        logger.info(req["body"])
+        #logger.info(req["body"])
 
-        response = await ADAPTER.process_activity(req["body"], auth_header, BOT.on_turn)
+        response = await ADAPTER.process_activity(activity, auth_header, BOT.on_turn)
         logger.info('line79')
         if response:
             return json_response(data=response.body, status=response.status)
